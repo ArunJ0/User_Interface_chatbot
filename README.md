@@ -1,29 +1,54 @@
 User_Interface_chatbot
 │
+
 ├── chatbot
+
 │ ├── pycache
+
 │ ├── migrations
+
 │ ├── init.py
+
 │ ├── admin.py
+
 │ ├── apps.py
+
 │ ├── models.py
+
 │ ├── tests.py
+
 │ ├── urls.py
+
 │ └── views.py
+
 │
+
 ├── django_chatbot
+
 │ ├── pycache
+
 │ ├── init.py
+
 │ ├── asgi.py
+
 │ ├── settings.py
+
 │ ├── urls.py
+
 │ ├── wsgi.py
+
 │ └── templates
+
 │ ├── base.html
+
 │ └── chatbot.html
+
 │
+
 ├── db.sqlite3
+
 ├── manage.py
+
 └── README.md
 
 
