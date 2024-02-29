@@ -1,8 +1,10 @@
-chatbot
+User_Interface_chatbot
 
-├── _pycache_
+├──chatbot
 
-├── migrations
+│   ├── _pycache_
+
+│   ├── migrations
 
 │   ├── __init__.py
 
