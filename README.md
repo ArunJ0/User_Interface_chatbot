@@ -1,49 +1,29 @@
 User_Interface_chatbot
-
-├──chatbot
-
-│   ├── _pycache_
-
-│   ├── migrations
-
-│   ├── __init__.py
-
-│   ├── admin.py
-
-│   ├── apps.py
-
-│   ├── models.py
-
-│   ├── tests.py
-
-│   ├── urls.py
-
-│   └── views.py
-
+│
+├── chatbot
+│ ├── pycache
+│ ├── migrations
+│ ├── init.py
+│ ├── admin.py
+│ ├── apps.py
+│ ├── models.py
+│ ├── tests.py
+│ ├── urls.py
+│ └── views.py
+│
 ├── django_chatbot
-
-│   ├── _pycache_
-
-│   ├── __init__.py
-
-│   ├── asgi.py
-
-│   ├── settings.py
-
-│   ├── urls.py
-
-│   ├── wsgi.py
-
-│   └── templates
-
-│       ├── base.html
-
-│       └── chatbot.html
-
+│ ├── pycache
+│ ├── init.py
+│ ├── asgi.py
+│ ├── settings.py
+│ ├── urls.py
+│ ├── wsgi.py
+│ └── templates
+│ ├── base.html
+│ └── chatbot.html
+│
 ├── db.sqlite3
-
 ├── manage.py
-
 └── README.md
 
 
@@ -121,4 +101,13 @@ This application allows users to interact with a chatbot, leveraging OpenAI's GP
 
 The manage.py script in a Django project is a command-line utility provided by Django for various administrative tasks.
 
-to run the user interface just run the manage.py script with "python manage.py runserver"
+
+## How to Run
+
+1. Ensure you have Python and Django installed.
+2. Navigate to the `django_chatbot` directory in your terminal.
+3. Run the following commands:
+
+```bash
+python manage.py migrate
+python manage.py runserver
