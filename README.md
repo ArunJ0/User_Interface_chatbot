@@ -1,3 +1,28 @@
+chatbot
+├── _pycache_
+├── migrations
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── django_chatbot
+│   ├── _pycache_
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── templates
+│       ├── base.html
+│       └── chatbot.html
+├── db.sqlite3
+├── manage.py
+└── README.md
+
+
 1. HTML Templates:
 templates/base.html:
 
