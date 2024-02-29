@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;
+    padding-top: 56px; /* Adjust as needed based on your header height */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar a {
+    padding: 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+  }
+
+  .sidebar a:hover {
+    background-color: #ddd;
+  }
+
+  .flex-grow-1 {
+    margin-left: 250px; /* Adjust the width of the sidebar as needed */
+    transition: margin-left 0.3s;
+  }
+
+  @media (max-width: 767.98px) {
+    .flex-grow-1 {
+      margin-left: 0;
+    }
+    .sidebar {
+      position: static;
+      width: 100%;
+      box-shadow: none;
+    }
+  }
+
+  
+  .messages-box {
+    flex: 1;
+    overflow-y: auto;
+    margin-left: 0px; /* Adjust the width of the sidebar as needed */
+    transition: margin-left 0.3s;
+  }
+
+  @media (max-width: 767.98px) {
+    .messages-box {
+      margin-left: 0;
+    }
+    .sidebar {
+      position: static;
+      width: 100%;
+      box-shadow: none;
+    }
+  }
+
+  .message-form {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin-left: 250px; /* Adjust the width of the sidebar as needed */
+    transition: margin-left 0.3s;
+  }
+
+  @media (max-width: 767.98px) {
+    .message-form {
+      margin-left: 0;
+    }
+  }
+
+  .messages-list {
+    padding-left: 0;
+    margin-bottom: 65px;
+  }
+
+  .message {
+    margin-bottom: 15px;
+    list-style: none;
+  }
+
+  .message-text {
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .sent {
+    background-color: #cfcfcf;
+    align-self: flex-end;
+  }
+
+  .received {
+    background-color: #f1f0f0;
+    align-self: flex-start;
+  }
+
+  .user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .message-form {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+  }
+
+  .message-input {
+    flex: 1;
+    border-radius: 0;
+    border-right: none;
+    font-size: 25px;
+  }
+
+  .btn-send {
+    border-radius: 0;
+  }
+
+  .chat-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<nav class="bg-light sidebar">
+  <h1 style="margin-left: 30px; margin-bottom: 40px;">3GPP Chat</h1>
+  <div class="sidebar-sticky">
+    <!-- Sidebar -->
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          Locker 1
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          Locker 2
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="chat-container">
+  <!-- The whole chat container -->
+  <div class="card flex-grow-1">
+    <div class="card-body messages-box">
+      
+      <ul class="list-unstyled messages-list">
+        
+        <li class="message received">
+          <div class="message-text">
+            <div class="message-sender">
+              <img src="{}" alt="Chatbot Icon" class="user-icon">
+              <b>3GPP Chatbot</b>
+            </div>
+            <div class="message-content">
+              Hi, I am an AI Chatbot, you can ask me anything about 3GPP.
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+    </div>
+    <br><br>
+    <br><br>
+    <br><br>
+  </div>
+  <!-- Chat input -->
+  <form class="message-form">
+    {%csrf_token%}
+    <div class="input-group">
+      <input type="text" class="form-control message-input" placeholder="Type your message...">
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-secondary btn-send">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Scripts for further messages after asking questions from the ai -->
+<script>
+  const messagesList = document.querySelector('.messages-list');
+  const messageForm = document.querySelector('.message-form');
+  const messageInput = document.querySelector('.message-input');
+
+  messageForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const message = messageInput.value.trim();
+    if (message.length === 0) {
+      return;
+    }
+
+    const messageItem = document.createElement('li');
+    messageItem.classList.add('message', 'sent');
+    messageItem.innerHTML = `
+        <div class="message-text">
+            <div class="message-sender">
+                <img src="{}" alt="User Icon" class="user-icon">
+                <b>You</b>
+            </div>
+            <div class="message-content">
+                ${message}
+            </div>
+        </div>`;
+    messagesList.appendChild(messageItem);
+
+    messageInput.value = '';
+
+    fetch('', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        'message': message
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        const response = data.response;
+        const messageItem = document.createElement('li');
+        messageItem.classList.add('message', 'received');
+        messageItem.innerHTML = `
+        <div class="message-text">
+            <div class="message-sender">
+              <img src="{}" alt="Chatbot Icon" class="user-icon">
+              <b>3GPP Chatbot</b>
+            </div>
+            <div class="message-content">
+                ${response}
+            </div>
+        </div>
+          `;
+        messagesList.appendChild(messageItem);
+      });
+  });
+
+</script>
+{% endblock %}
